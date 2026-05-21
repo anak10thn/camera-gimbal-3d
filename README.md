@@ -1,67 +1,74 @@
 # Camera Gimbal 3D
 
-Desain 3D untuk camera gimbal — FreeCAD source files dan STL siap cetak.
+A 3D-printable camera gimbal designed in FreeCAD. Supports standard **webcam** mounting with servo-driven pan/tilt motion.
 
-## Struktur
+## Repository Structure
 
 ```
 .
-├── stl/                    # File STL siap cetak
-├── freecad/                # Source file FreeCAD (.FCStd)
-└── scripts/                # Script konversi FCStd → STL
+├── stl/          # Print-ready STL files (servo & screws removed)
+├── freecad/      # FreeCAD source files (.FCStd)
+└── scripts/      # FCStd → STL conversion scripts
 ```
 
-## Komponen yang Dapat Dicetak (`stl/`)
+## Printable Parts (`stl/`)
 
-| File | Deskripsi |
-|------|-----------|
-| `Kamera_Basis_Deckel.stl` | Tutup/cover dudukan kamera |
-| `Kamera_Basis_Gehaeuse.stl` | Housing dudukan kamera |
-| `Kamera_Halterung.stl` | Bracket holder kamera |
-| `Achsverbindung.stl` | Penghubung sumbu gimbal |
-| `Befestigung.stl` | Bracket pemasangan |
-| `T25_servo_horn.stl` | Servo horn kustom T25 |
+| File | Description |
+|------|-------------|
+| `Kamera_Basis_Deckel.stl` | Camera base lid / top cover |
+| `Kamera_Basis_Gehaeuse.stl` | Camera base housing |
+| `Kamera_Halterung.stl` | Camera bracket / holder |
+| `Achsverbindung.stl` | Gimbal axis connector |
+| `Befestigung.stl` | Mounting bracket |
+| `T25_servo_horn.stl` | Custom T25 servo horn |
 
-> **Catatan:** STL sudah dibersihkan dari komponen servo dan baut — hanya bagian yang perlu dicetak.
+> STL files are exported clean — servo bodies and screws are excluded. Only the parts you need to print.
+
+## Camera Compatibility
+
+This gimbal is designed to mount a standard **USB webcam**. The `Kamera_Halterung` (camera holder) fits common rectangular webcam form factors. Reference model: `freecad/Webcam.FCStd`.
 
 ## FreeCAD Source (`freecad/`)
 
-| File | Deskripsi |
-|------|-----------|
-| `Kamera.FCStd` | Assembly lengkap kamera gimbal |
-| `Kamera_Basis.FCStd` | Dudukan kamera (Deckel + Gehäuse) |
-| `Kamera_Halterung.FCStd` | Holder kamera |
-| `Achsverbindung.FCStd` | Penghubung sumbu |
-| `Befestigung.FCStd` | Bracket pemasangan |
-| `T25_servo_horn.FCStd` | Servo horn T25 |
-| `Webcam.FCStd` | Model referensi webcam (tidak dicetak) |
+| File | Description |
+|------|-------------|
+| `Kamera.FCStd` | Full gimbal assembly |
+| `Kamera_Basis.FCStd` | Camera base (lid + housing) |
+| `Kamera_Halterung.FCStd` | Camera holder |
+| `Achsverbindung.FCStd` | Axis connector |
+| `Befestigung.FCStd` | Mounting bracket |
+| `T25_servo_horn.FCStd` | T25 servo horn |
+| `Webcam.FCStd` | Webcam reference model (not printed) |
 
 ## Scripts (`scripts/`)
 
-| Script | Fungsi |
-|--------|--------|
-| `export_printable_only.py` | Export hanya body yang dapat dicetak per komponen (tanpa servo, baut) |
-| `convert_to_stl.py` | Konversi batch semua FCStd ke STL |
+| Script | Purpose |
+|--------|---------|
+| `export_printable_only.py` | Export only printable bodies from each assembly (excludes servo, screws) |
+| `convert_to_stl.py` | Batch convert all FCStd files to STL |
 
-### Cara Pakai Script
+### Usage
 
-Membutuhkan FreeCAD terinstall (via Homebrew: `brew install --cask freecad`).
+Requires FreeCAD (macOS: `brew install --cask freecad`).
 
 ```bash
-# Export komponen printable dari assembly Kamera.FCStd
+# Export clean printable parts from the Kamera assembly
 /Applications/FreeCAD.app/Contents/Resources/bin/freecadcmd scripts/export_printable_only.py
 
-# Konversi semua FCStd ke STL sekaligus
+# Batch convert all FCStd to STL
 /Applications/FreeCAD.app/Contents/Resources/bin/freecadcmd scripts/convert_to_stl.py
 ```
 
-## Hardware Tambahan (Tidak Dicetak)
+## Additional Hardware (Not Printed)
 
-- Servo motor (kompatibel T25 horn)
-- Webcam / kamera
-- Baut M3, M4
-- Baut M1.6x8 (untuk kamera)
+| Item | Notes |
+|------|-------|
+| Servo motor | T25 horn compatible |
+| USB webcam | Mounted in `Kamera_Halterung` |
+| M3 × 5 screws | Axis connector |
+| M4 × 12 screws + M4 nuts | Base and holder |
+| M1.6 × 8 screws | Camera attachment |
 
-## Tools
+## Requirements
 
 - [FreeCAD](https://www.freecad.org/) 1.1+
